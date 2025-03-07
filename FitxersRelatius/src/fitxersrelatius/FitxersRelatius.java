@@ -70,6 +70,7 @@ public class FitxersRelatius {
     Ho he fet aqui ja que aixi ho tinc tot mes centralitzat
     @autor Tisi
     */
+    /*
     public static void main(String[] args) throws FileNotFoundException, IOException {
         //Variables
         String rutaFitxer="f1_in.dat";
@@ -80,10 +81,10 @@ public class FitxersRelatius {
         Scanner sc= new Scanner(System.in);
         
             
-            /*
-            Abans de poder modificar el fitxer el podem emmagatzemar en un arrayList
-            i així ho podem modificar sense problemes
-            */
+           
+            //Abans de poder modificar el fitxer el podem emmagatzemar en un arrayList
+            //i així ho podem modificar sense problemes
+            
             List <String> array1=new ArrayList<>();
             try(BufferedReader llegir= new BufferedReader(new FileReader(rutaFitxer))){
                 String linia;
@@ -95,15 +96,18 @@ public class FitxersRelatius {
                 System.out.println("Error al llegir el fitxer: "+ e.getMessage());
             }
         do{
-            System.out.println("A quina posicio vols modificar?: ");
+            System.out.println("A quina posicio vols modificar?: (Es comença amb el 0)");
             numIndex=sc.nextInt();
             
             //Comprovem si el numero es valid o no
-            if(!(numIndex>1 && numIndex<array1.size())||numIndex!=-1){
+            if((!(numIndex>1 && numIndex<array1.size()))||numIndex==-1){
                 System.out.println("No es un numero valid per poder cambiar ");
+                if(numIndex==-1){
+                    break;
+                }
             }
             System.out.println(array1.get(numIndex));
-            
+            sc.nextLine();
             //Preguntem el nou numero que volem ficar pel vell
             System.out.println("Per quin numero vols cambiar? ");
             numCambiar=sc.nextLine();
@@ -118,12 +122,51 @@ public class FitxersRelatius {
                 modificar.write(linia);
                 modificar.newLine();
             }
-            System.out.println("Fitxer omplert correctament");    
+               
             }catch(IOException e){
                 System.out.println("Error al escriure al fitxer: "+e.getMessage());
             }
+        System.out.println(array1);
         
         }
+    */
+    //Exercici 3
+    /*
+    Aquest exercici ens demana llegir de un text en un .txt una paraula introduïda per l'usuari
+    i cada vegada que el trobem dintre del text la cambiarem per la mateixa paraula però en majùscula
+    */
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        //Variables
+        String rutaFitxer="text.txt";
+        String paraula="";
+        String paraulaEnMajuscula=paraula.toUpperCase();
+        //Inicialitzem els scanners
+        Scanner sc= new Scanner(System.in);
+        
+        System.out.println("Quina paraula vols cambiar a tot majuscules?: ");
+        paraula=sc.nextLine();
+        
+        StringBuilder contenido = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(new FileReader(rutaFitxer))) {
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    contenido.append(linea).append("\n"); // Guardar cada línea
+                }
+            }
+
+            // Reemplazar la palabra en el contenido
+            String contenidoModificado = contenido.toString().replaceAll("\\b" + paraula + "\\b", paraulaEnMajuscula);
+
+            // Sobrescribir el fichero con el contenido modificado
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaFitxer))) {
+                bw.write(contenidoModificado);
+            }
+
+            System.out.println("Proces completat");
+
+        
+        
+    }
     }
 
 
